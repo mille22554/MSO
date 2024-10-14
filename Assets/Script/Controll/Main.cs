@@ -1,9 +1,16 @@
+using System;
 using UnityEngine;
 
 public class Main : MonoBehaviour
 {
     void Start()
     {
-        Instantiate((GameObject)PrefabMng.GetData("PanelLogin"), gameObject.transform);
+        EventMng.SetEvent(EventName.EnterGame, (Action)EnterGame);
+
+        ObjectPool.Get(PrefabMng.GetData("PanelLogin").GetComponent<PanelLogin>(), gameObject.transform);
+    }
+    private void EnterGame()
+    {
+        ObjectPool.Get(PrefabMng.GetData("PageMain").GetComponent<PageMain>(), gameObject.transform);
     }
 }

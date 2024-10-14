@@ -30,7 +30,7 @@ public class PanelLogin : MonoBehaviour
         if (GameData.save.playerData == null)
         {
             GameData.save.playerData = new PlayerData(account.text);
-            SaveMng.SaveGame(GameData.save.playerData.account + GameData.version[0], GameData.save);
+            SaveMng.SaveGame();
         }
         if (GameData.save.playerData.name == null)
         {
@@ -40,10 +40,7 @@ public class PanelLogin : MonoBehaviour
             testLogin.text = "確定";
             btnLogin.onClick.AddListener(OnSetName);
         }
-        else
-        {
-            gameObject.SetActive(false);
-        }
+        else EnterGame();
     }
     private async void SetAccountText(string str)
     {
@@ -56,8 +53,8 @@ public class PanelLogin : MonoBehaviour
         else
         {
             GameData.save.playerData.name = account.text;
-            SaveMng.SaveGame(GameData.save.playerData.account + GameData.version[0], GameData.save);
-            gameObject.SetActive(false);
+            SaveMng.SaveGame();
+            EnterGame();
         }
     }
     private void CheckSave(SaveData save, int ver)
@@ -65,10 +62,19 @@ public class PanelLogin : MonoBehaviour
         if (save == null)
         {
             ver++;
-            if (ver >= GameData.version.Length) SaveMng.SaveGame(account.text + GameData.version[0], new SaveData());
+            if (ver >= GameData.version.Length)
+            {
+                GameData.save = new SaveData();
+                SaveMng.SaveGame();
+            }
             else CheckSave(SaveMng.LoadGame(account.text + GameData.version[ver]), ver);
         }
         else GameData.save = save;
+    }
+    private void EnterGame()
+    {
+        ObjectPool.Put(this);
+        EventMng.EmitEvent(EventName.EnterGame);
     }
     private void OnDisable()
     {
