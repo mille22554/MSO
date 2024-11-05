@@ -27,12 +27,12 @@ public class PanelLogin : MonoBehaviour
         hint.text = "";
 
         CheckSave(SaveMng.LoadGame(account.text + GameData.version[0]), 0);
-        if (GameData.save.playerData == null)
+        if (GameData.PlayerData == null)
         {
-            GameData.save.playerData = new PlayerData(account.text);
+            GameData.PlayerData = new PlayerData(account.text);
             SaveMng.SaveGame();
         }
-        if (GameData.save.playerData.name == null)
+        if (GameData.PlayerData.name == null)
         {
             btnLogin.onClick.RemoveListener(OnLogin);
             SetAccountText("");
@@ -52,7 +52,7 @@ public class PanelLogin : MonoBehaviour
         if (string.IsNullOrEmpty(account.text)) hint.text = "名稱不能空白!";
         else
         {
-            GameData.save.playerData.name = account.text;
+            GameData.PlayerData.name = account.text;
             SaveMng.SaveGame();
             EnterGame();
         }

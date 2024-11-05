@@ -49,5 +49,9 @@ public class EventInfo
 public enum EventName
 {
     EnterGame,
-    RefreshInfo
+    RefreshInfo,
+    OnPageSwitch,
+    SetModelAPointAddInteractable,
+    SetPersonInfo,
+    OpenItemInfo
 }

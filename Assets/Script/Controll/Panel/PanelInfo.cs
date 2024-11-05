@@ -19,28 +19,29 @@ public class PanelInfo : MonoBehaviour
     }
     public void SetInfo()
     {
-        if (GameData.save.playerData.avator == null)
+        if (GameData.PlayerData.avator == null)
         {
             // avator.sprite = ImageMng.GetData("DefaultAvator");
-            GameData.save.playerData.avator = PublicFunc.SpriteToBytes(ImageMng.GetData("DefaultAvator2"));
+            GameData.PlayerData.avator = PublicFunc.SpriteToBytes(ImageMng.GetData("DefaultAvator2"));
             var rect = avator.GetComponent<RectTransform>();
-            avator.sprite = PublicFunc.BytesToSprite(GameData.save.playerData.avator, rect.rect.width, rect.rect.height);
+            avator.sprite = PublicFunc.BytesToSprite(GameData.PlayerData.avator, rect.rect.width, rect.rect.height);
             SaveMng.SaveGame();
         }
         else
         {
             var rect = avator.GetComponent<RectTransform>();
-            avator.sprite = PublicFunc.BytesToSprite(GameData.save.playerData.avator, rect.rect.width, rect.rect.height);
+            avator.sprite = PublicFunc.BytesToSprite(GameData.PlayerData.avator, rect.rect.width, rect.rect.height);
         }
-        playerName.text = GameData.save.playerData.name;
+        playerName.text = GameData.PlayerData.name;
         RefreshInfo();
     }
     private void RefreshInfo()
     {
-        lv.text = $"LV {GameData.save.playerData.lv}";
-        hp.text = $"HP {GameData.save.playerData.nowHp}/{GameData.save.playerData.maxHp}";
-        mp.text = $"MP {GameData.save.playerData.nowMp}/{GameData.save.playerData.maxMp}";
-        tp.text = $"TP {GameData.save.playerData.nowTp}/{GameData.save.playerData.maxTp}";
-        exp.text = $"EXP {GameData.save.playerData.nowExp}/{GameData.save.playerData.maxExp}";
+        PublicFunc.RefreshPlayerStatus();
+        lv.text = $"LV {GameData.PlayerData.lv}";
+        hp.text = $"HP {GameData.PlayerData.nowHp}/{GameData.PlayerData.maxHp}";
+        mp.text = $"MP {GameData.PlayerData.nowMp}/{GameData.PlayerData.maxMp}";
+        tp.text = $"TP {GameData.PlayerData.nowTp}/{GameData.PlayerData.maxTp}";
+        exp.text = $"EXP {GameData.PlayerData.nowExp}/{GameData.PlayerData.maxExp}";
     }
 }

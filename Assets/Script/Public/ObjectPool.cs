@@ -9,15 +9,22 @@ public class ObjectPool
     {
         if (itemClasses.TryGetValue(typeof(T), out var classList))
         {
-            var itemClass = classList[0];
-            itemClass.gameObject.SetActive(true);
-            classList.RemoveAt(0);
-            return (T)itemClass;
+            if (classList.Count == 0)
+            {
+                return GameObject.Instantiate(item.gameObject, parent).GetComponent<T>();
+            }
+            else
+            {
+                var itemClass = classList[0];
+                itemClass.gameObject.SetActive(true);
+                classList.RemoveAt(0);
+                return (T)itemClass;
+            }
         }
         else
         {
             var itemClass = GameObject.Instantiate(item.gameObject, parent).GetComponent<T>();
-            itemClasses.Add(typeof(T), new() { itemClass });
+            itemClasses.Add(typeof(T), new() { });
             return itemClass;
         }
     }

@@ -12,5 +12,6 @@ public class Main : MonoBehaviour
     private void EnterGame()
     {
         ObjectPool.Get(PrefabMng.GetData("PageMain").GetComponent<PageMain>(), gameObject.transform);
+        ObjectPool.Get(PrefabMng.GetData("PanelButton").GetComponent<PanelButton>(), gameObject.transform);
     }
 }

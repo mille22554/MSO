@@ -14,14 +14,14 @@ public class SaveMng
         Debug.LogWarning(saveDirectoryPath);
 
         // 建立存檔路徑，使用帳號名稱作為檔案名
-        string saveFilePath = Path.Combine(saveDirectoryPath, GameData.save.playerData.account + GameData.version[0] + ".json");
+        string saveFilePath = Path.Combine(saveDirectoryPath, GameData.PlayerData.account + GameData.version[0] + ".json");
 
         // 將遊戲數據序列化為 JSON 字串
         string jsonData = JsonConvert.SerializeObject(GameData.save);
 
         // 將 JSON 字串寫入帳號對應的存檔檔案
         File.WriteAllText(saveFilePath, jsonData);
-        Debug.Log($"Game Data Saved for {GameData.save.playerData.account + GameData.version[0]}!");
+        Debug.Log($"Game Data Saved for {GameData.PlayerData.account + GameData.version[0]}!");
     }
 
     // 根據帳號名稱讀取遊戲數據
